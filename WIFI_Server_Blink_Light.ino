@@ -32,3 +32,46 @@ void setup() {
 
     server.begin();
 }
+
+// esp32 running loop
+
+void loop() {
+    NetworkClient client = server.accept();
+
+    if (client) {
+        while (client.connected()) {
+            if (client.available()) {
+                char c = client.read();
+                Serial.write(c);
+                if (c == '\n') {
+                    if (currentLine.length() == 0) {
+                        client.println("Http/:1.1 200 OK");
+                        client.println("Content-type:text/html");
+                        client.println();
+
+                        client.print("Click <a href=\"/on\"> here to turn LED on.<br>");
+                        client.print("Click <a href=\"/off\"> here to turn LED off.<br>");
+
+                        client.println();
+
+                        break;
+
+                    } else {
+                        currentLine = "";
+                    }
+                } else if (c != '\r') {
+                    currentLine += "";
+                }
+
+                if (currentLine.endsWith("GET /on")) {
+                    digitalWrite(2, HIGH);
+                }
+                if (currentLine.endsWith("GET /off")) {
+                    digitalWrite(2, LOW);
+                }
+            }
+        }
+        client.stop();
+        Serial.println("Client Disconnected.");
+}
+}
