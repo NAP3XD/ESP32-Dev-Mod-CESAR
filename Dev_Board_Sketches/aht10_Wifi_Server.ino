@@ -1,3 +1,6 @@
+// This program will print temp and humidiuy to serial as well as 
+// host a http server that can be accsed via a FastAPI app
+// UNCC '25
 #include <WiFi.h>
 #include <Wire.h>
 #include <Adafruit_AHTX0.h>
