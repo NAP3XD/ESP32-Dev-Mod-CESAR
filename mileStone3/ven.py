@@ -17,6 +17,7 @@ async def handle_event(event):
     print(f"Received event {event['event_descriptor']['event_id']}, responding with {decision}")
     return decision
 
+"""
 client = OpenADRClient(
     ven_name='Dante-007',
     vtn_url='https://localhost:8080/OpenADR2/Simple/2.0b',
@@ -24,6 +25,12 @@ client = OpenADRClient(
     key='certs/dante.key',
     ca_file='certs/dante.crt'  # Trust self-signed cert
 )
+"""
+
+client = OpenADRClient(
+    ven_name='Dante-007',
+    vtn_url='http://localhost:8080/OpenADR2/Simple/2.0b')
+
 
 client.add_report(
     callback=collect_temperature,
