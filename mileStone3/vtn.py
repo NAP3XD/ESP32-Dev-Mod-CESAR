@@ -38,19 +38,27 @@ server.add_handler('on_register_report', on_register_report)
 
 now = datetime.now(timezone.utc) + timedelta(seconds=10)
 
-server.add_event(
-    ven_id='dante_ven_id',
-    signal_name='simple',
-    signal_type='level',
-    event_id='power_event',
-    intervals=[{
-        'dtstart': now,
-        'duration': timedelta(minutes=5),
-        'signal_payload': 1
-    }],
-    callback=on_event_response
-)
+async def schedule_random_event_forever():
+    print("event started")
+    while True:
+        await asyncio.sleep(random.randint(20, 60))
+        now = datetime.now(timezone.utc)
+
+        server.add_event(
+            ven_id='dante_ven_id',
+            signal_name='simple',
+            signal_type='level',
+            event_id='power_event' + str(random.randint(1000, 9999)),
+            intervals=[{
+                'dtstart': now + timedelta(seconds=5),
+                'duration': timedelta(minutes=1),
+                'signal_payload': 1
+            }],
+            callback=on_event_response
+        )
+        print("Power Event Started!")
 
 loop = asyncio.get_event_loop()
 loop.create_task(server.run())
+loop.create_task(schedule_random_event_forever())
 loop.run_forever()
