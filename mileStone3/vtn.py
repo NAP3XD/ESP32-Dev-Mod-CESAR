@@ -23,8 +23,10 @@ async def on_event_response(ven_id, event_id, opt_type):
 
 server = OpenADRServer(
     vtn_id='Dante-007',
-    cert='certs/dante.crt',
-    key='certs/dante.key'
+    cert='/home/nico/IoTProj/ESP32-Dev-Mod-CESAR/mileStone3/certs/cert.pem',
+    key='/home/nico/IoTProj/ESP32-Dev-Mod-CESAR/mileStone3/certs/key.pem',
+    passphrase='dante'
+
 )
 
 server.add_handler('on_create_party_registration', on_create_party_registration)
@@ -46,5 +48,5 @@ server.add_event(
 )
 
 loop = asyncio.get_event_loop()
-loop.create_task(server.run())
+loop.create_task(server.run(host='0.0.0.0', port=8080))
 loop.run_forever()
