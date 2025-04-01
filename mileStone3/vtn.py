@@ -21,7 +21,7 @@ async def on_register_report(ven_id, resource_id, measurement, unit, scale,
 async def on_event_response(ven_id, event_id, opt_type):
     print(f"{ven_id} responded to {event_id} with: {opt_type}")
 
-""""
+
 server = OpenADRServer(
     vtn_id='Dante-007',
     cert='/home/nico/IoTProj/ESP32-Dev-Mod-CESAR/mileStone3/certs/cert.pem',
@@ -32,7 +32,7 @@ server = OpenADRServer(
 """
 
 server = OpenADRServer(vtn_id='Dante-007')
-
+"""
 server.add_handler('on_create_party_registration', on_create_party_registration)
 server.add_handler('on_register_report', on_register_report)
 
