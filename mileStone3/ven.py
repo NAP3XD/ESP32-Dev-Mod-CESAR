@@ -20,7 +20,7 @@ async def handle_event(event):
 
 client = OpenADRClient(
     ven_name='Dante-007',
-    vtn_url='https://localhost:8080/OpenADR2/Simple/2.0b',
+    vtn_url='http://localhost:8080/OpenADR2/Simple/2.0b',
     cert='certs/cert.pem',
     key='certs/key.pem',
     ca_file='certs/cert.pem',  # Trust self-signed cert
